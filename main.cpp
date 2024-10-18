@@ -23,4 +23,10 @@ int main() {
             "Shadowing");
     display("App(Func(x, NatType, Func(y, NatType, App(x, Func(x, NatType, x)))), z)",
             "Capture-avoiding substitution");
+    display("ElimNat("
+                "Func(x, NatType, NatType),"
+                "Succ(Succ(Zero)),"
+                "Func(_, NatType, Func(x, NatType, Succ(x))),"
+                "Succ(Succ(Succ(Zero)))"
+            ")", "ElimNat addition: 2+3=5");
 }

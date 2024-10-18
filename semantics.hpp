@@ -43,16 +43,19 @@ void _evaluate(Expr* expr) {
         // Eval-elimNat-0
         if (std::holds_alternative<Zero>(*en.target)) {
             *expr = *en.base;
-            del(en.mot);
-            del(en.ind);
-            del(en.target);
         }
         // Eval-elimNat-succ
         if (std::holds_alternative<Succ>(*en.target)) {
             *en.target = *std::get<Succ>(*en.target).n;
             Expr *app = new Expr(App(copy(en.ind), copy(en.target)));
-            *expr = App(app, expr);
+            Expr* expr_cpy = copy(expr);
+            *expr = App(app, expr_cpy);
+            del(en.base);
+            _evaluate(expr);
         }
+        del(en.mot);
+        del(en.ind);
+        del(en.target);
     }
 }
 
